@@ -11,10 +11,13 @@ export class AppointmentListComponent implements OnInit {
   newAppointmentTitle: string = '';
   newAppointmentDate: Date = new Date();
   appointments: Appointment[] = [];
+  private isLocalStorageAvailable = typeof localStorage !== 'undefined';
 
   ngOnInit(): void {
-    let savedAppointments = localStorage.getItem('appointments');
-    this.appointments = savedAppointments ? JSON.parse(savedAppointments) : [];
+    if (this.isLocalStorageAvailable) {
+      let savedAppointments = localStorage.getItem('appointments');
+      this.appointments = savedAppointments ? JSON.parse(savedAppointments) : [];
+    }
   }
 
   addAppointment() {
